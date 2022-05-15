@@ -10598,6 +10598,12 @@ div.code-toolbar > .toolbar span:hover {
 		box-shadow: 0 0 0 0 rgba(4, 169, 245, 0)
 	}
 }
+  .chart-container {
+ 	margin: 0px auto;
+	width: 500px;
+	height: 375px;
+	border: 10px #333 solid;
+  }
 
 #container {
 	margin: 0px auto;

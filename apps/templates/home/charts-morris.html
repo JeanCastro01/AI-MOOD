@@ -1,11 +1,25 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Charts Morris {% endblock %} 
+{% block title %} AI-MOOD CHARTS {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
 
     <link rel="stylesheet" href="/static/assets/plugins/chart-morris/css/morris.css">
+
+     <link
+    rel="stylesheet"
+    href="../contrast-bootstrap-pro/css/bootstrap.min.css" />
+  <link
+    rel="stylesheet"
+    href="../contrast-bootstrap-pro/css/cdb.css" />
+  <script
+    src="../contrast-bootstrap-pro/js/cdb.js"></script>
+  <script
+    src="../contrast-bootstrap-pro/js/bootstrap.min.js"></script>
+  <script
+    src="https://kit.fontawesome.com/9d1d9a82d2.js"
+    crossorigin="anonymous"></script>
 
 {% endblock stylesheets %}
 
@@ -24,7 +38,7 @@
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
                             <li class="breadcrumb-item"><a href="javascript:">Chart</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Morris Chart</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">AI-MOOD CHART</a></li>
                         </ul>
                     </div>
                 </div>
@@ -35,84 +49,51 @@
             <div class="page-wrapper">
                 <!-- [ Main Content ] start -->
                 <div class="row">
+
                     <!-- [ Morris Chart ] start -->
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Bar [ Simple ] Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="morris-bar-chart" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Bar [ Stacked ] Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="morris-bar-stacked-chart" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Line [ Angle ] Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="morris-area-chart" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Area [ Smooth ] Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="morris-area-curved-chart" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Line [ Angle ] Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="morris-line-chart" class="ChartShadow" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Line [ Smooth ] Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="morris-line-smooth-chart" class="ChartShadow" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Donut Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="morris-donut-chart" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
+                         <div class="card chart-container">
+                            <canvas id="chart"></canvas>
+                                </div>
+
                     <!-- [ Morris Chart ] end -->
-                </div>
+
                 <!-- [ Main Content ] end -->
             </div>
         </div>
     </div>
 </div>
+<style>
+  .chart-container {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+  }
+</style>
+
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js">
+    </script>
+
+    <script>
+      const ctx = document.getElementById("chart").getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ["Angry", "Disgust", "Fear", "Happy", "Neutral",
+           "Sad", "Surprise"],
+          datasets: [{
+            label: 'food Items',
+            data: [30, 40, 20, 50, 80, 90, 20],
+            backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
+            "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
+            "#001f3f", "#39CCCC", "#01FF70", "#85144b",
+            "#F012BE", "#3D9970", "#111111", "#AAAAAA"]
+          }]
+        },
+      });
+</script>
+
+
 
 
 {% endblock content %}

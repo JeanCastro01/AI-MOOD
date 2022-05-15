@@ -16,6 +16,30 @@ import threading
 #load model
 from core import settings
 
+#load model
+from core import settings
+
+#model = model_from_json(open("../trained_model/fer.json", "r").read())
+
+#model = model_from_json(os.path.join(settings.BASE_DIR,'../trained_model/fer.json','r'))
+
+#load weights
+#model.load_weights('../trained_model/fer.h5')
+
+#face_cascade_name = cv2.data.haarcascades + 'opencv_haarcascade_data/haarcascade_frontalface_alt.xml'  #getting a haarcascade xml file
+
+#face_cascade_name = cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml'
+
+#face_cascade_name = cv2.CascadeClassifier(os.path.join(settings.BASE_DIR,'haarcascade_frontalface_alt.xml'))
+#face_cascade = cv2.CascadeClassifier()  #processing it for our project
+
+
+#if not face_cascade.load(cv2.samples.findFile(face_cascade_name)):  #adding a fallback event
+   # print("Error loading xml file")
+#emotions_array = []
+
+
+
 class VideoCamera(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
