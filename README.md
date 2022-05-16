@@ -2,13 +2,14 @@
 
 
 
-The user will be able to press the "Start Recording" button, which will open the camera and capture up to seven different facial expressions from anyone who appears in front of the camera.
+
+After Logged in The user will be able to press the "Start Recording" button, which will open the camera and capture up to seven different facial expressions from anyone who appears in front of the camera.
 
 
 The user must then return to the main dashboard and select the "Stop Recording" button; by doing so, the program will store all of the emotions captured by the camera to the database.
 
 
-The user will be able to examine the emotions analysis captured by the trained machine here.
+The user will be able to examine the emotions analysis captured by the trained machine on the "Chart" page.
 
 
 
