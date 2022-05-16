@@ -1,9 +1,4 @@
-# [AI-MOOD](https://appseed.us/product/datta-able/django/)
-
-
-
-The AI-MOOD application dashboard is shown below.
-
+# [AI-MOOD]
 
 
 
@@ -15,8 +10,6 @@ The user must then return to the main dashboard and select the "Stop Recording" 
 
 The user will be able to examine the emotions analysis captured by the trained machine here.
 
-
-The reverse engineer from our database is shown below.
 
 
 
