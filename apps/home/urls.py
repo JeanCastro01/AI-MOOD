@@ -17,6 +17,6 @@ urlpatterns = [
 
     path('video_feed', views.video_feed, name='video_feed'),
     path('charts', views.charts, name='charts'),
-    #path('date', views.date, name='dates'),
+    path('kill_video', views.kill_video, name='kill_video'),
 
 ]

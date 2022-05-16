@@ -1,16 +1,14 @@
+import self as self
 from tensorflow._api.v2.config import threading
-
 import os
-
 from tensorflow.keras.models import model_from_json
 from tensorflow.keras.preprocessing import image
-
 import threading
-
 import cv2
 import numpy as np
 from keras.models import model_from_json
 from keras.preprocessing import image
+import mysql.connector
 
 
 class VideoCamera(object):
@@ -44,7 +42,9 @@ class VideoCamera(object):
         while True:
             (self.grabbed, self.frame) = self.video.read()
             frame = self.frame
-
+            key = cv2.waitKey(20)
+            if key == 27:  # exit on ESC
+                break
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # grayscale to facilitate analysis
             face = fc.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
 
@@ -61,7 +61,40 @@ class VideoCamera(object):
                     max_index = np.argmax(predictions[0])
                     emotions = ('angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral')
                     predicted_emotion = emotions[max_index]
-                    print(predicted_emotion)  # print out the dominant emotion
-                    emotions_array.append(predicted_emotion)
+                    print(max_index)  # print out the dominant emotion
+                    emotion_list = str(max_index)
+                    print(emotion_list)
+
                 except:
                     print("no face")
+
+
+class kill_video():
+
+
+
+    def insert_varibles_into_table(user_id, emotions, date):
+
+            connection = mysql.connector.connect(host='database-2.cjyi04obosa8.eu-west-1.rds.amazonaws.com',
+                                                     database='mydb2',
+                                                     user='admin',
+                                                     password='Mood2018257')
+            cursor = connection.cursor()
+            mySql_insert_query = """INSERT INTO Mood ( Auth_user_id, Emotions, Date) 
+                                                                         VALUES (%s, %s, %s) """
+
+            record = (user_id, emotions, date)
+            cursor.execute(mySql_insert_query, record)
+            connection.commit()
+            print("Record inserted successfully into Mood table")
+
+    insert_varibles_into_table(1, 23232323, '20')
+
+
+
+
+
+
+
+
+
