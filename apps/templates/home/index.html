@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Dashboard {% endblock %} 
+{% block title %} CAMERA ACTION {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -37,22 +37,31 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Recording</h5>
+                                    <h5>AI-MOOD</h5>
                                 </div>
 
-                            <h1>AI-MOOD in Action</h1>
 
-	                          <img src="{% url 'video_feed' %}">
+
 
                              <div class="card-block">
-                                <button type="button" class="btn btn-primary" title="btn btn-primary" data-toggle="tooltip">Start Recording</button>
-                                <button type="button" class="btn btn-danger" title="btn btn-danger" data-toggle="tooltip">Stop Recording</button>
+                                <ol>
+                                    <h3>How to use:</h3>
+                                    <li>  <h5> Click on the button: "Start Application" </h5></li>
+                                    <a href="{% url 'video_feed'%}" class="btn btn-success">Start Application</a>
+                                    <li>  <h5>Turn back and clik on the button: "Stop Application" </h5></li>
+ <a href="{% url 'charts'%}" class="btn btn-danger">Stop Application</a>
+                                </ol>
+
+
+
+
+
+
+
+
                              </div>
 
-<script>
 
-
-</script>
                                 </div>
                             </div>
                         </div>

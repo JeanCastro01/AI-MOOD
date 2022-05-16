@@ -1,48 +1,24 @@
-import pandas as pd
-import cv2
-import os
-import numpy as np
 from tensorflow._api.v2.config import threading
+
+import os
+
 from tensorflow.keras.models import model_from_json
 from tensorflow.keras.preprocessing import image
-from django.http import HttpResponse
-from django.shortcuts import render
-from .models import *
-from django.core.mail import EmailMessage
-from django.views.decorators import gzip
-from django.http import StreamingHttpResponse
-import cv2
+
 import threading
-#load model
-from core import settings
 
-#load model
-from core import settings
-
-#model = model_from_json(open("../trained_model/fer.json", "r").read())
-
-#model = model_from_json(os.path.join(settings.BASE_DIR,'../trained_model/fer.json','r'))
-
-#load weights
-#model.load_weights('../trained_model/fer.h5')
-
-#face_cascade_name = cv2.data.haarcascades + 'opencv_haarcascade_data/haarcascade_frontalface_alt.xml'  #getting a haarcascade xml file
-
-#face_cascade_name = cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml'
-
-#face_cascade_name = cv2.CascadeClassifier(os.path.join(settings.BASE_DIR,'haarcascade_frontalface_alt.xml'))
-#face_cascade = cv2.CascadeClassifier()  #processing it for our project
-
-
-#if not face_cascade.load(cv2.samples.findFile(face_cascade_name)):  #adding a fallback event
-   # print("Error loading xml file")
-#emotions_array = []
-
+import cv2
+import numpy as np
+from keras.models import model_from_json
+from keras.preprocessing import image
 
 
 class VideoCamera(object):
+
     def __init__(self):
+
         self.video = cv2.VideoCapture(0)
+        # cv2.namedWindow("preview")
         (self.grabbed, self.frame) = self.video.read()
         threading.Thread(target=self.update, args=()).start()
 
@@ -55,5 +31,37 @@ class VideoCamera(object):
         return jpeg.tobytes()
 
     def update(self):
+
+        cwd = os.getcwd()
+        emotions_array = []
+        model = model_from_json(open(f'{cwd}/trained_model/fer.json', "r").read())
+        # # load weights
+        model.load_weights(f'{cwd}/trained_model/fer.h5')
+        name_fc = cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml'  # getting a haarcascade xml file
+        fc = cv2.CascadeClassifier()  # processing it for our project
+        if not fc.load(cv2.samples.findFile(name_fc)):  # add an error check
+            print("Error loading xml file")
         while True:
             (self.grabbed, self.frame) = self.video.read()
+            frame = self.frame
+
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # grayscale to facilitate analysis
+            face = fc.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
+
+            for x, y, w, h in face:
+                img = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 1)
+                roi_gray = gray[y:y + w, x:x + h]  # cropping the face
+                roi_gray = cv2.resize(roi_gray, (48, 48))
+                img_pixels = image.img_to_array(roi_gray)
+                img_pixels = np.expand_dims(img_pixels, axis=0)
+                img_pixels /= 255
+                predictions = model.predict(img_pixels)
+
+                try:
+                    max_index = np.argmax(predictions[0])
+                    emotions = ('angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral')
+                    predicted_emotion = emotions[max_index]
+                    print(predicted_emotion)  # print out the dominant emotion
+                    emotions_array.append(predicted_emotion)
+                except:
+                    print("no face")

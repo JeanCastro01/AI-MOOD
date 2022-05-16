@@ -13,8 +13,10 @@ urlpatterns = [
     path('', views.index, name='home'),
 
     # Matches any html file
-    #re_path(r'^.*\.*', views.pages, name='pages'),
+    #re_path(r'^.*\.*', views, name='pages'),
 
     path('video_feed', views.video_feed, name='video_feed'),
+    path('charts', views.charts, name='charts'),
+    #path('date', views.date, name='dates'),
 
 ]
